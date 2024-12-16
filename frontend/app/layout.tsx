@@ -1,14 +1,20 @@
-import '@/app/ui/global.css';
-import { inter } from '@/app/ui/fonts';
- 
-export default function RootLayout({
+import NavBar from '@/app/ui/navbar'
+
+export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body>
+        <NavBar></NavBar>
+        {/* Layout UI */}
+        {/* Place children where you want to render a page or nested layout */}
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
-  );
+  )
 }
