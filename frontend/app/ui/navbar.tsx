@@ -2,37 +2,30 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React, { useState } from "react";
 import '@/app/ui/global.css';
 import clsx from 'clsx';
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
- 
+import { TfiHome, TfiDashboard } from 'react-icons/tfi';
+
 export default function NavBar() {
   const pathname = usePathname(); 
-  const links = [{name: "asdas",        href:"/",                     icon: UserGroupIcon},
-                 {name: "asdasd",       href:"/dashboard",            icon: HomeIcon},
-                 {name: "asdasasdd",    href:"/dashboard/customers",  icon: DocumentDuplicateIcon},
-                 {name: "assdasasdd",   href:"/dashboard/invoices",   icon: DocumentDuplicateIcon}];
-  return (
-    <nav 
-      className="flex-container ">
-      {links.map((link) => {
-        const LinkIcon = link.icon;
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className=""
-          >
-            <LinkIcon className="w-8" />
-            <p className="">{link.name}</p>
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
+  const links = [{name: "Home",        href:"/",                     icon: TfiHome},
+                 {name: "Dashboard",       href:"/dashboard",            icon: TfiDashboard},
+                 {name: "Dash Customers",    href:"/dashboard/customers",  icon: TfiDashboard},
+                 {name: "Dash Invoices",   href:"/dashboard/invoices",   icon: TfiDashboard}];
+  const [nav, setNav] = useState(false);
 
+  return (
+    <ul
+      className="flex flex-row justify-top items-center relative top-0 left-0 w-full text-gray-200"
+      >
+      {links.map((link) => (
+        <li
+          key={link.name}
+          className="nav-links px-10 cursor-pointer capitalize font-Large text-gray-500 hover:scale-105 hover:text-green duration-200 link-underline" >
+            <Link href={link.href}><link.icon /> {link.name}</Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
