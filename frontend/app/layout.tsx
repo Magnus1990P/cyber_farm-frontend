@@ -17,7 +17,10 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="bg-blue-300"
+    >
       <body className={inter.className}>
         <NavBar />
         {/* Layout UI */}
