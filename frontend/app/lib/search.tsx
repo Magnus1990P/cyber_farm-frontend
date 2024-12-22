@@ -1,20 +1,4 @@
-import styles from '@/app/ui/home.module.css';
-import {Vendor, Product} from "@/app/lib/definitions"
-import ProductCard from '@/app/ui/products';
-
-const vendors = [
-  {id:0, name:"a", products:[0]},
-  {id:1, name:"b", products:[1,2]},
-  {id:2, name:"c", products:[]}]
-
-
-const products = [
-  {id:0, name:"a", vendor:0, companies:[]},
-  {id:1, name:"b", vendor:1, products:[]},
-  {id:2, name:"c", vendor:1, products:[]}]
-
-
-export default function Page() {
+export default function SearchBox() {
   return (
     <>
     <div className='max-w-md mx-auto mb-5'>
@@ -26,7 +10,7 @@ export default function Page() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
         </div>
 
@@ -36,10 +20,6 @@ export default function Page() {
         id="search"
         placeholder="Search something.." /> 
       </div>
-    </div>
-
-    <div>
-      <ProductCard products={products}></ProductCard>
     </div>
     </>
 );

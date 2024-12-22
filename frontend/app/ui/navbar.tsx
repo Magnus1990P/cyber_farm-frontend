@@ -9,9 +9,9 @@ export default function NavBar() {
   const pathname = usePathname(); 
   const links = [
       {name: "Home",          href:"/",                    icon: TfiHome},
-      {name: "Organization",  href:"/dashboard",           icon: TfiDashboard},
+      {name: "Organization",  href:"/organizations",           icon: TfiBriefcase},
       {name: "Companies",     href:"/companies",           icon: TfiDashboard},
-      {name: "Contacts",      href:"/dashboard/customers",  icon: TfiUser},
+      {name: "Contacts",      href:"/contacts",  icon: TfiUser},
       {name: "Products",      href:"/dashboard/invoices",     icon: TfiBriefcase}
   ];
 
