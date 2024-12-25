@@ -17,7 +17,7 @@ export default function NavBar() {
 
   return (
     <div
-      className="flex flex-nowrap flex-row justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5"
+      className="flex-nowrap flex-row justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5"
     >
       <ul className='flex flex-row items-center'>
         {links.map((link) => (

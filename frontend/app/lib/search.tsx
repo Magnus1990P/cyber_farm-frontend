@@ -1,9 +1,8 @@
 export default function SearchBox() {
   return (
-    <>
-    <div className='max-w-md mx-auto mb-5'>
+    <div className='max-w-md mx-auto mb-5' key="searchbox-main">
       <div className="relative flex items-center w-full h-24 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-        <div className="grid place-items-center h-full w-24 text-gray-700">
+        <div className="grid place-items-center h-full w-24 text-gray-700" key="searchbox-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg" 
               className="h-6 w-6"
@@ -21,6 +20,5 @@ export default function SearchBox() {
         placeholder="Search something.." /> 
       </div>
     </div>
-    </>
 );
 }
