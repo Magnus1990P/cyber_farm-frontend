@@ -8,11 +8,11 @@ import { TfiHome, TfiDashboard, TfiMenu, TfiUser, TfiBriefcase, TfiPanel } from 
 export default function NavBar() {
   const pathname = usePathname(); 
   const links = [
-      {name: "Home",          href:"/",                    icon: TfiHome},
-      {name: "Organization",  href:"/organizations",           icon: TfiBriefcase},
-      {name: "Companies",     href:"/companies",           icon: TfiDashboard},
-      {name: "Contacts",      href:"/contacts",  icon: TfiUser},
-      {name: "Products",      href:"/dashboard/invoices",     icon: TfiBriefcase}
+      {name: "Home",          href:"/",               icon: TfiHome},
+      {name: "Organization",  href:"/organizations",  icon: TfiBriefcase},
+      {name: "Companies",     href:"/companies",      icon: TfiDashboard},
+      {name: "Contacts",      href:"/contacts",       icon: TfiUser},
+      {name: "Assets",        href:"/assets",         icon: TfiBriefcase}
   ];
 
   return (
