@@ -35,7 +35,7 @@ export async function OrganizationsGrid() {
     const organizations = await data.json();
     return (
       <div
-        className='flex grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
+        className='flex grid justify-center auto-rows-auto md:grid-cols-4 mx-5 gap-5'
         key='organization' >
       {organizations.map((data:JSON) => {
         var organization_object = Organization.fromJSON(data);

@@ -1,3 +1,7 @@
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
 export default interface ProductType {
     id: number;
     name: string;
@@ -24,7 +28,8 @@ export class Product implements ProductType {
     }
 }
 
-export default interface VendorType {
+
+interface VendorType {
     id: number;
     name: string;
     products: number[];
@@ -52,6 +57,15 @@ export class Vendor implements VendorType {
 
 export async function AssetGrid() {
     const data = await fetch('http://localhost:8000/vendors/', {cache: 'no-store'});
+    if(data.status == 404){
+        return (
+            <div
+            className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
+            key='vendors'>
+                <h1>failed to retrieve contact data</h1>
+            </div>
+        )
+    };
     const vendors = await data.json();
     return (
         <div
@@ -72,20 +86,21 @@ export async function AssetGrid() {
 };
 
 
-function AssetCard(props) {
+function AssetCard(props: { id: number; name: string; products: Product[]; }) {
     return (
       <div
         key='{props.id}-vendor'
-        className='bg-black bg-opacity-25'>
+        className='bg-black bg-opacity-25'
+        >
         <div className="w-fill text-center" key='{props.id}-asset_head'>
             <h1><b>#{props.id}</b> - {props.name}</h1>
         </div>
         <table
-            className='ww-fill table-auto border-separate border-spacing-x-2 text-sm font-light text-surface'>
+            className='ww-fill table-auto border-separate border-spacing-x-2 text-sm font-light text-surface'
+            key='{props.id}-table'>
           <thead><tr><th className='bg-lime-700'>#</th><th className='bg-lime-700'>Name</th></tr></thead>
-          <tbody>
-            {props.products.map((data:JSON) => {
-                var pobj = Product.fromJSON(data);
+          <tbody key='{props.id}-tbodt' >
+            {props.products.map((pobj:Product) => {
                 return (
                     <tr><td>{pobj.id}</td><td>{pobj.name}</td></tr>
                 );

@@ -64,7 +64,17 @@ export class Company implements CompanyType {
 
 export async function CompanyGrid() {
     const data = await fetch('http://localhost:8000/companies/', {cache: 'no-store'});
+    if(data.status == 404){
+        return (
+            <div
+            className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
+            key='companies'>
+                <h1>failed to retrieve data</h1>
+            </div>
+        )
+    };
     const companies = await data.json();
+    
     return (
     <div
         className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
