@@ -1,5 +1,5 @@
 import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/navigator";
 import Link from "next/link";
 
 export default interface ProductType {
@@ -93,7 +93,7 @@ function AssetCard(props: { id: number; name: string; products: Product[]; }) {
         className='bg-black bg-opacity-25'
         >
         <div className="w-fill text-center" key='{props.id}-asset_head'>
-            <h1><b>#{props.id}</b> - {props.name}</h1>
+            <Link href={'/assets/'+props.id}><h1><b>#{props.id}</b> - {props.name}</h1></Link>
         </div>
         <table
             className='ww-fill table-auto border-separate border-spacing-x-2 text-sm font-light text-surface'
@@ -111,3 +111,18 @@ function AssetCard(props: { id: number; name: string; products: Product[]; }) {
       </div>
     );
   }
+
+
+export async function VendorInfo(props: { vendor_id: number }) {
+    const resp = await fetch("http://localhost:8000/vendors/"+props.vendor_id, {cache: 'no-store'});
+    const data = await resp.json();
+    var vendor_object = Vendor.fromJSON(data["vendor"]);
+    var product_list = Product.fromJSON(data["products"]);
+    console.log(vendor_object);
+
+    return (
+    <>
+        <h1>{props.vendor_id}</h1>
+    </>
+    );
+}
