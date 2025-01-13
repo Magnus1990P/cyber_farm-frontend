@@ -20,19 +20,19 @@ function VendorInfo() {
     }, []);
 
     if(isLoading){
-        <>
+        return (
             <div className='col bg-purple-500 p-10 text-center'>
                 <h2>Loading data</h2>
             </div>
-        </>
+        );
     }
     else{
         return (
             <>
-                <div className='col bg-white shadow-md p-5 text-center rounded-xl'>
+                <div className='col col-span-3 bg-white shadow-md w-auto py-3 text-center rounded-xl '>
                     <h1>{vendorData.id} - {vendorData.name}</h1>
                 </div>
-                <div className='col bg-white shadow-md p-5 align-middle'>
+                <div className='col col-span-4 bg-white shadow-md p-5 align-middle'>
                     <p>Registered products:</p>
                     <ul>
                         {vendorData.products.map(product => (
