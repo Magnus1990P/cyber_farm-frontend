@@ -1,23 +1,32 @@
-import '@/app/ui/global.css';
+import {Vendor} from '@/app/lib/vendor';
 import {Product} from '@/app/lib/product';
 import Link from "next/link";
 
-
-export function AssetCard(props: {id: number; name: string; products: Product[];}) {
+function ProductRow({product}:{product:Product}) {
   return (
-    <div key={'vendor'+props.id} className='bg-black bg-opacity-25' >
-      <div className="w-fill text-center" key={'asset_head-'+props.id}>
-          <Link href={'/assets/'+props.id}><h1><b>#{props.id}</b> - {props.name}</h1></Link>
+      <tr key={product.id}>
+          <td>{product.id}</td>
+          <td>{product.name}</td>
+      </tr>
+  );
+}
+
+export function AssetCard({vendor}:{vendor:Vendor}) {
+  return (
+    <div key={'vendor'+vendor.id} className='bg-white shadow-md shadow-black rounded-md' >
+      <div className="w-fill text-center" key={'asset_head-'+vendor.id}>
+          <Link href={'/assets/'+vendor.id}><h1><b>#{vendor.id}</b> - {vendor.name}</h1></Link>
       </div>
-      <table className='ww-fill table-auto border-separate border-spacing-x-2 text-sm font-light text-surface'>
-        <thead>
-          <tr><th className='bg-lime-700'>#</th><th className='bg-lime-700'>Name</th></tr>
+      <table key={vendor.id} className="w-full text-sm text-left rtl:text-right text-black">
+        <thead className="text-sm font-bold text-white uppercase bg-gray-500">
+          <tr>
+            <th scope="col" className="px-2 py-1">#</th>
+            <th scope="col" className="px-4 py-1">Name</th>
+          </tr>
         </thead>
         <tbody>
-          {props.products.map((pobj:Product) => {
-              return (
-                  <tr key={pobj.id}><td>{pobj.id}</td><td>{pobj.name}</td></tr>
-              );
+          {vendor.products.map((product:Product) => {
+              return ( <ProductRow key={product.id} product={product} /> );
           })}
         </tbody>
       </table>

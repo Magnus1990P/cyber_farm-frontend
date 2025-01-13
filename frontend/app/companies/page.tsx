@@ -1,6 +1,6 @@
 import styles from '@/app/ui/company.module.css';
 import SearchBox from '@/app/lib/search'
-import {CompanyGrid} from '@/app/lib/company'
+import {CompanyGrid} from './companygrid'
 
 
 

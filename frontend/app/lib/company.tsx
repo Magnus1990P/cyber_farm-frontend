@@ -1,6 +1,4 @@
-import CompanyCard from '@/app/ui/company';
-
-export default interface CompanyType {
+interface CompanyType {
     id: number;
     ekultur_id: string;
     short_name: string
@@ -59,33 +57,3 @@ export class Company implements CompanyType {
         );
     }
 }
-
-
-
-export async function CompanyGrid() {
-    const data = await fetch('http://localhost:8000/companies/', {cache: 'no-store'});
-    if(data.status == 404){
-        return (
-            <div
-            className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
-            key='companies'>
-                <h1>failed to retrieve data</h1>
-            </div>
-        )
-    };
-    const companies = await data.json();
-    
-    return (
-    <div
-        className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'
-        key='companies'>
-        {companies.map((data:JSON) => {
-            var company_object = Company.fromJSON(data);
-            return(
-                <CompanyCard company={company_object} />
-            )
-        })
-    }
-    </div>
-    )
-  }

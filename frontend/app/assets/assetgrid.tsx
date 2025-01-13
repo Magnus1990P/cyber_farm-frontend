@@ -1,32 +1,39 @@
 "use client";
 import { Vendor } from "@/app/lib/vendor";
-import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import {AssetCard} from "./assetcard"
 
 
 export function AssetGrid() {
-    const params = useParams();
     const [vendorList, setvendorList] = useState([]);
+    const [isLoading, setLoading] = useState(true)
     
     useEffect(() => {
         fetch("http://localhost:8000/vendors/")
         .then(response => response.json())
-        .then(data => setvendorList(data));
+        .then(data => {
+            setvendorList(data);
+            setLoading(false);
+        });
     }, []);
     
-    return (
-        <div key='vendors' className='flex grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-            {vendorList.map((data:JSON) => {
-                var vendor_object = Vendor.fromJSON(data);
-                return (
-                    <AssetCard 
-                        id={vendor_object.id} 
-                        name={vendor_object.name}
-                        products={vendor_object.products}
-                    />
-                )
-            })}
-        </div>
-    );
+    if(isLoading){
+        return (
+            <div key='vendor_list' className='col bg-purple-500 p-10 text-center'>
+                <h2>Loading data</h2>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div key='vendor_list'
+                className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
+                {vendorList.map((data:JSON) => {
+                    return (
+                        <AssetCard key={data.id} vendor={Vendor.fromJSON(data)} />
+                    );
+                })}
+            </div>
+        );
+    }
 };
