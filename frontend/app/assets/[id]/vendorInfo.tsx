@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { CiPaperplane } from "react-icons/ci";
 
+import NewProduct from './product_create';
 
 function VendorInfo() {
     const params = useParams();
@@ -29,10 +30,11 @@ function VendorInfo() {
     else{
         return (
             <>
-                <div className='col col-span-3 bg-white shadow-md w-auto py-3 text-center rounded-xl '>
+                <div className='col col-span-2 bg-white shadow-md py-3 text-center rounded-xl mb-5'>
                     <h1>{vendorData.id} - {vendorData.name}</h1>
                 </div>
-                <div className='col col-span-4 bg-white shadow-md p-5 align-middle'>
+
+                <div className='col col-span-3 row-span-2 ml-5 bg-white shadow-md align-middle rounded-lg'>
                     <p>Registered products:</p>
                     <ul>
                         {vendorData.products.map(product => (
@@ -42,6 +44,8 @@ function VendorInfo() {
                         ))}
                     </ul>
                 </div>
+
+                <NewProduct />
             </>
         );    
     }
