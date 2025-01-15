@@ -10,10 +10,21 @@ export function AssetGrid() {
     
     useEffect(() => {
         fetch("http://localhost:8000/vendors/")
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            else {
+                throw new Error("Failed query", {cause: response});
+            }
+        })
         .then(data => {
             setvendorList(data);
             setLoading(false);
+        })
+        .catch(function(err) {
+            setLoading(false);
+            return []
         });
     }, []);
     

@@ -10,10 +10,22 @@ export function ContactGrid() {
     
     useEffect(() => {
         fetch("http://localhost:8000/contacts/")
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            else {
+                throw new Error("Failed query", {cause: response});
+            }
+        })
         .then(data => {
             setContactList(data);
             setLoading(false);
+        })
+        .catch(function(err) {
+            console.log("FUCK", err)
+            setLoading(false);
+            return []
         });
     }, []);
     
