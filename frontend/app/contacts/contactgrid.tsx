@@ -23,7 +23,6 @@ export function ContactGrid() {
             setLoading(false);
         })
         .catch(function(err) {
-            console.log("FUCK", err)
             setLoading(false);
             return []
         });
