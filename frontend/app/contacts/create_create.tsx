@@ -13,7 +13,6 @@ function handleSubmit(formData:FormData) {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      
     });
 }
 

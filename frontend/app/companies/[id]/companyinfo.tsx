@@ -12,11 +12,18 @@ function CompanyInfo() {
     const [isLoading, setLoading] = useState(true)
   
     useEffect(() => {
-      fetch(`http://localhost:8000/companies/${params.id}?query=all`)
-        .then(response => response.json())
+        fetch(`http://localhost:8000/companies/${params.id}?query=all`)
+        .then(response => {
+            if(response.ok){ return response.json(); }
+            else{ throw new Error("Failed query", {cause: response}); }
+        })
         .then(data => {
             setCompanyData(data);
             setLoading(false);
+        })
+        .catch(function(err) {
+            setLoading(false);
+            setCompanyData([]);
         });
     }, []);
 
@@ -28,42 +35,51 @@ function CompanyInfo() {
         );
     }
     else{
-        return (
-            <>
-                <div className='col col-span-2 bg-white shadow-md py-3 text-w rounded-xl mb-5'>
-                    <p className='text-center ml-10 text-lg font-mono font-bold'>{companyData.name} ({companyData.short_name})</p>
-                    <p className='ml-5 font-mono'><span className='font-bold'>EkulturID:</span> {companyData.ekultur_id	}</p>
-                    <p className='ml-5 font-mono'><span className='font-bold'>ISAC member:</span> {companyData.isMember ? "YES" : "No"}</p>
-                    <p className='ml-5 font-mono'><span className='font-bold'>Notice CERT:</span> {companyData.noticeHCERT ? "YES" : "No"}</p>
-                    <p className='ml-5 font-mono'><span className='font-bold'>Org number:</span> {companyData.organization_number}</p>
+        if(companyData.length == 0){
+            return (
+                <div className='col bg-purple-500 p-10 text-center'>
+                    <h2>No data</h2>
                 </div>
-
-                <div className='col col-span-1 row-span-2 ml-5 bg-white shadow-md align-middle rounded-lg'>
-                    <p className='ml-10 text-lg font-mono font-bold'>Contacts:</p>
+            );
+        }
+        else{
+            return (
+                <>
+                    <div className='col col-span-2 bg-white shadow-md py-3 text-w rounded-xl mb-5'>
+                        <p className='text-center ml-10 text-lg font-mono font-bold'>{companyData.name} ({companyData.short_name})</p>
+                        <p className='ml-5 font-mono'><span className='font-bold'>EkulturID:</span> {companyData.ekultur_id	}</p>
+                        <p className='ml-5 font-mono'><span className='font-bold'>ISAC member:</span> {companyData.isMember ? "YES" : "No"}</p>
+                        <p className='ml-5 font-mono'><span className='font-bold'>Notice CERT:</span> {companyData.noticeHCERT ? "YES" : "No"}</p>
+                        <p className='ml-5 font-mono'><span className='font-bold'>Org number:</span> {companyData.organization_number}</p>
+                    </div>
+    
+                    <div className='col col-span-1 row-span-3 ml-5 bg-white shadow-md align-middle rounded-lg'>
+                        <p className='ml-10 text-lg font-mono font-bold'>Contacts:</p>
+                        <ul className='ml-3'>
+                            {companyData.contacts.map(contact => (
+                                <li key={contact.id} className='flex item-center text-center'>
+                                    <BiSolidContact /> {contact.name} - {contact.email}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+    
+                    <div className='col col-span-1 row-span-3 ml-5 bg-white shadow-md align-middle rounded-lg'>
+                    <p className='ml-10 text-lg font-mono font-bold'>Products:</p>
                     <ul className='ml-3'>
-                        {companyData.contacts.map(contact => (
-                            <li key={contact.id} className='flex item-center text-center'>
-                                <BiSolidContact /> {contact.name} - {contact.email}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className='col col-span-1 row-span-2 ml-5 bg-white shadow-md align-middle rounded-lg'>
-                <p className='ml-10 text-lg font-mono font-bold'>Products:</p>
-                <ul className='ml-3'>
-                        {companyData.products.map(product => (
-                            <li key={product.id} className='flex item-center text-center'>
-                                <BiCog /> &nbsp; {product.id} - {product.name}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                
-                <RegisterContact />
-                <RegisterProduct />
-            </>
-        );    
+                            {companyData.products.map(product => (
+                                <li key={product.id} className='flex item-center text-center'>
+                                    <BiCog /> &nbsp; {product.id} - {product.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    
+                    <RegisterContact />
+                    <RegisterProduct />
+                </>
+            );    
+        }
     }
 }
 
