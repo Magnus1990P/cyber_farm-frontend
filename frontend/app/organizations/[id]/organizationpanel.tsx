@@ -5,6 +5,7 @@ import {Organization} from '@/app/lib/organization';
 import React, { useState, useEffect } from 'react';
 import { BiSolidContact, BiSolidChevronRight, BiCog } from "react-icons/bi";
 import Link from "next/link";
+import {RegisterCompany} from './add_company'
 
 export function OrganizationPanel() {
   const params = useParams();
@@ -79,9 +80,10 @@ export function OrganizationPanel() {
             </p>
           </div>
 
-          <div className='col bg-white shadow-md p-5 text-center rounded-xl shadow-black'>
-            <p className='text-xl underline text-left font-medium'>Companies</p>
-            <ul>
+          <div className='col bg-white shadow-md text-center rounded-xl shadow-black'>
+            <p className='text-xl underline text-left font-medium p-5'>Companies</p>
+            <RegisterCompany />
+            <ul className='p-5'>
               {organization.companies.map(company => (
                   <li key={company.id} className='flex'>
                       <BiSolidChevronRight /> <Link href={"/companies/"+company.id}>{company.name}</Link>

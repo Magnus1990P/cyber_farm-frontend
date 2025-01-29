@@ -11,11 +11,11 @@ function ProductRow({product}:{product:Product}) {
   );
 }
 
-export function AssetCard({vendor}:{vendor:Vendor}) {
+export function VendorCard({vendor}:{vendor:Vendor}) {
   return (
     <div key={'vendor'+vendor.id} className='bg-white shadow-md shadow-black rounded-md' >
       <div className="w-fill text-center" key={'asset_head-'+vendor.id}>
-          <Link href={'/assets/'+vendor.id}><h1><b>#{vendor.id}</b> - {vendor.name}</h1></Link>
+          <Link href={'/vendors/'+vendor.id}><h1><b>#{vendor.id}</b> - {vendor.name}</h1></Link>
       </div>
       <table key={vendor.id} className="w-full text-sm text-left rtl:text-right text-black">
         <thead className="text-sm font-bold text-white uppercase bg-gray-500">

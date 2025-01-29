@@ -12,7 +12,7 @@ export default function NavBar() {
       {name: "Organization",  href:"/organizations",  icon: TfiBriefcase},
       {name: "Companies",     href:"/companies",      icon: TfiDashboard},
       {name: "Contacts",      href:"/contacts",       icon: TfiUser},
-      {name: "Assets",        href:"/assets",         icon: TfiBriefcase}
+      {name: "Vendors",       href:"/vendors",        icon: TfiBriefcase}
   ];
 
   return (

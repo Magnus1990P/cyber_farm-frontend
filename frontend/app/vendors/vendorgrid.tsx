@@ -1,10 +1,10 @@
 "use client";
 import { Vendor } from "@/app/lib/vendor";
 import React, { useState, useEffect } from 'react';
-import {AssetCard} from "./assetcard"
+import {VendorCard} from "./vendorcard"
 
 
-export function AssetGrid() {
+export function VendorGrid() {
     const [vendorList, setvendorList] = useState([]);
     const [isLoading, setLoading] = useState(true)
     
@@ -37,7 +37,7 @@ export function AssetGrid() {
                 className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
                 {vendorList.map((data:JSON) => {
                     return (
-                        <AssetCard key={data.id} vendor={Vendor.fromJSON(data)} />
+                        <VendorCard key={data.id} vendor={Vendor.fromJSON(data)} />
                     );
                 })}
             </div>
