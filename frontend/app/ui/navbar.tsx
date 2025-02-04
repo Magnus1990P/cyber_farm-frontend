@@ -3,10 +3,33 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import '@/app/ui/global.css';
-import { TfiHome, TfiDashboard, TfiMenu, TfiUser, TfiBriefcase, TfiPanel } from 'react-icons/tfi';
+import { TfiHome, TfiDashboard, TfiUser, TfiBriefcase, TfiPanel } from 'react-icons/tfi';
+
+import { SignInButton, SignOutButton } from '@/app/ui/AuthButton';
+
+import { PublicClientApplication } from '@azure/msal-browser';
+import { MsalProvider, useIsAuthenticated, useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import { msalConfig } from '@/app/lib/authConfig';
+
+const msalInstance = new PublicClientApplication(msalConfig);
+
+const AuthButton = () => {
+  const isAuthenticated = useIsAuthenticated();
+  return (
+    <>
+      <AuthenticatedTemplate>
+        <SignOutButton /> 
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <SignInButton />
+      </UnauthenticatedTemplate>
+    </>
+  );
+};
 
 export default function NavBar() {
-  const pathname = usePathname(); 
+  const pathname = usePathname();
+
   const links = [
       {name: "Home",          href:"/",               icon: TfiHome},
       {name: "Organization",  href:"/organizations",  icon: TfiBriefcase},
@@ -16,10 +39,13 @@ export default function NavBar() {
   ];
 
   return (
-    <div
-      className="flex-nowrap flex-row justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5"
-    >
+    <div className="flex-nowrap flex-row justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5" >
       <ul className='flex flex-row items-center'>
+        <li>
+          <MsalProvider instance={msalInstance}>
+            <AuthButton />
+          </MsalProvider>
+        </li> 
         {links.map((link) => (
           <li
             key={link.name}
