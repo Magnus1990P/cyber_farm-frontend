@@ -4,27 +4,29 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
-function handleProductSubmit(formData:FormData) {
-    var company_id = Number(formData.get("company_id"));
-    fetch(`http://localhost:8000/organizations?company_id=${company_id}`, {
-      method: "POST"
-    })
-    .then(response => {
-        if(response.ok){ return response.json(); }
-        else { throw new Error("Failed query", {cause: response}); }
-    })
-    .then(data => {
-        alert("Created new organization");
-    })
-    .catch(function(err) {
-      alert("Creation failed");
-    });
-}
+
 
 export function CreateOrganization() {
   const params = useParams();
   const [company_list, setCompanyList] = useState([]);
   const [isLoading, setLoading] = useState(true)
+
+  function handleProductSubmit(formData:FormData) {
+      var company_id = Number(formData.get("company_id"));
+      fetch(`http://localhost:8000/organizations?company_id=${company_id}`, {
+        method: "POST"
+      })
+      .then(response => {
+          if(response.ok){ return response.json(); }
+          else { throw new Error("Failed query", {cause: response}); }
+      })
+      .then(data => {
+          alert("Created new organization");
+      })
+      .catch(function(err) {
+        alert("Creation failed");
+      });
+  }
 
   useEffect(() => {
     fetch(`http://localhost:8000/companies/`)
