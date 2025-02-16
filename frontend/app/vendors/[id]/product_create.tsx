@@ -1,11 +1,11 @@
 "use client";
 import { useFormStatus } from "react-dom";
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'next/navigation';
 
 function handleSubmit(formData:FormData) {
-  var vendor_id = Number(formData.get("vendor_id"));
-  var product_name = formData.get("name");
+  const vendor_id = Number(formData.get("vendor_id"));
+  const product_name = formData.get("name");
   console.log(vendor_id, product_name);
   fetch(`http://localhost:8000/vendors/${vendor_id}/products?product_name=${product_name}`, {
     method: "POST"
@@ -16,9 +16,11 @@ function handleSubmit(formData:FormData) {
   })
   .then(data => {
       alert("Added product to vendor");
+      console.log(data);
   })
   .catch(function(err) {
     alert("Failed to add product to vendor");
+    console.log(err);
   });
 }
 

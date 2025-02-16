@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import { BiSolidContact, BiSolidChevronRight, BiCog } from "react-icons/bi";
+import { BiSolidContact, BiCog } from "react-icons/bi";
 import RegisterContact from './contact_register'
 import RegisterProduct from './product_register'
 
@@ -24,6 +24,7 @@ function CompanyInfo() {
         .catch(function(err) {
             setLoading(false);
             setCompanyData([]);
+            console.log(err);
         });
     }, []);
 

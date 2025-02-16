@@ -1,7 +1,6 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import {Organization} from '@/app/lib/organization';
 import React, { useState, useEffect } from 'react';
 import { BiSolidContact, BiSolidChevronRight, BiCog } from "react-icons/bi";
 import Link from "next/link";
@@ -27,6 +26,7 @@ export function OrganizationPanel() {
       .catch(function(err) {
           setLoading(false);
           setVendor([]);
+          console.log(err);
       });
 
       fetch("http://localhost:8000/organizations/"+params.id)
@@ -41,8 +41,9 @@ export function OrganizationPanel() {
       .catch(function(err) {
           setOrganization([]);
           setLoading(false);
+          console.log(err);
       });
-  }, []);
+  }, [params.id]);
 
   if(isLoading || isLoadingVendors) {
     return (

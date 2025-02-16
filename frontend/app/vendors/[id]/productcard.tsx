@@ -1,11 +1,9 @@
 
 import Link from "next/link";
-import { BiCog, BiSolidBusiness, BiSolidContact } from "react-icons/bi";
-import { useParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import { BiSolidBusiness, BiSolidContact } from "react-icons/bi";
+import React from 'react';
 
 import {Product} from '@/app/lib/product';
-import {Company} from '@/app/lib/company';
 
 
 export function ProductCard({product}:{product:Product}) {

@@ -1,20 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import '@/app/ui/global.css';
-import { TfiHome, TfiDashboard, TfiUser, TfiBriefcase, TfiPanel } from 'react-icons/tfi';
+import { TfiHome, TfiDashboard, TfiUser, TfiBriefcase } from 'react-icons/tfi';
 
 import { SignInButton, SignOutButton } from '@/app/ui/AuthButton';
 
 import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider, useIsAuthenticated, useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import { msalConfig } from '@/app/lib/authConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
 const AuthButton = () => {
-  const isAuthenticated = useIsAuthenticated();
   return (
     <>
       <AuthenticatedTemplate>
@@ -28,8 +26,6 @@ const AuthButton = () => {
 };
 
 export default function NavBar() {
-  const pathname = usePathname();
-
   const links = [
       {name: "Home",          href:"/",               icon: TfiHome},
       {name: "Organization",  href:"/organizations",  icon: TfiBriefcase},

@@ -1,9 +1,7 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-
 
 
 export function CreateOrganization() {
@@ -12,7 +10,7 @@ export function CreateOrganization() {
   const [isLoading, setLoading] = useState(true)
 
   function handleProductSubmit(formData:FormData) {
-      var company_id = Number(formData.get("company_id"));
+      const company_id = Number(formData.get("company_id"));
       fetch(`http://localhost:8000/organizations?company_id=${company_id}`, {
         method: "POST"
       })
@@ -22,9 +20,11 @@ export function CreateOrganization() {
       })
       .then(data => {
           alert("Created new organization");
+          console.log(data);
       })
       .catch(function(err) {
         alert("Creation failed");
+        console.log(err);
       });
   }
 
@@ -40,6 +40,7 @@ export function CreateOrganization() {
       })
       .catch(function(err) {
           setLoading(false);
+          console.log(err);
           return []
       });
   }, []);

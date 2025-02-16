@@ -21,6 +21,7 @@ export function VendorGrid() {
         .catch(function(err) {
             setLoading(false);
             setvendorList([]);
+            console.log(err);
         });
     }, []);
     

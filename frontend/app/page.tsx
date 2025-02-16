@@ -1,17 +1,13 @@
 "use client";
 
 import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider, AuthenticatedTemplate, useMsal, UnauthenticatedTemplate } from '@azure/msal-react';
+import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import { msalConfig } from '@/app/lib/authConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
 
 const MainContent = () => {
-  const { instance, accounts } = useMsal();
-
-  console.log(accounts);
-
   return (
       <div className="App">
           <AuthenticatedTemplate>

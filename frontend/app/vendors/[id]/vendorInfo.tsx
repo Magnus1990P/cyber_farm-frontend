@@ -20,7 +20,7 @@ function VendorInfo() {
             setVendorData(data);
             setLoading(false);
         });
-    }, []);
+    }, [params.id]);
 
     if(isLoading){
         return (

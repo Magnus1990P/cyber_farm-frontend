@@ -1,10 +1,9 @@
 "use client";
 import { useFormStatus } from "react-dom";
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import React from 'react';
 
 function handleSubmit(formData:FormData) {
-  var vendor_name = formData.get("name");
+  const vendor_name = formData.get("name");
   fetch(`http://localhost:8000/vendors/?name=${vendor_name}`, {
     method: "POST"
   })
@@ -14,14 +13,15 @@ function handleSubmit(formData:FormData) {
   })
   .then(data => {
       alert("Created vendor");
+      console.log(data);
   })
   .catch(function(err) {
     alert("Failed to create vendor");
+    console.log(err);
   });
 }
 
 export function NewVendor() {
-  const params = useParams();
   const { pending } = useFormStatus();
   
   return (

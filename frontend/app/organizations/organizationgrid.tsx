@@ -28,7 +28,7 @@ export function OrganizationsGrid() {
             <div key='organization'
                 className='grid justify-center auto-rows-auto md:grid-cols-4 mx-5 gap-5' >
                 {organizationList.map((data:JSON) => {
-                    var organization = Organization.fromJSON(data);
+                    let organization = Organization.fromJSON(data);
                     return(
                         <OrganizationCard key={organization.organization.id} organization={organization} />
                     )
