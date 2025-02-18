@@ -1,12 +1,11 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
 function handleProductSubmit(formData:FormData) {
-    var organization_id = formData.get("organization_id");
-    var company_id = Number(formData.get("company_id"));
+    const organization_id = formData.get("organization_id");
+    const company_id = Number(formData.get("company_id"));
     fetch(`http://localhost:8000/organizations/${organization_id}/companies/${company_id}`, {
       method: "PUT"
     })
@@ -16,9 +15,11 @@ function handleProductSubmit(formData:FormData) {
     })
     .then(data => {
         alert("Added company to organization");
+        console.log(data);
     })
     .catch(function(err) {
       alert("Failed to add company");
+      console.log(err);
     });
 }
 
@@ -39,6 +40,7 @@ export function RegisterCompany() {
       })
       .catch(function(err) {
           setLoading(false);
+          console.log(err);
           return []
       });
   }, []);

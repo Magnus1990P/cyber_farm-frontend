@@ -1,5 +1,9 @@
 import { Product } from "@/app/lib/product";
 
+interface Dictionary<T> {
+    [key: string]: T;
+}
+
 interface VendorType {
     id: number;
     name: string;
@@ -16,7 +20,7 @@ export class Vendor implements VendorType {
         this.name = name;
         this.products = [];
         products.forEach(element => {
-            var prod = Product.fromJSON(element);
+            const prod = Product.fromJSON(element);
             this.products.push(prod);
         });
     }

@@ -15,7 +15,7 @@ export class Organization implements OrganizationType {
   }
 
   static fromJSON(json: any): Organization {
-    var company_list: Company[] = [];
+    const company_list: Company[] = [];
     json.companies.map((company:Company) => {
       company_list.push(Company.fromJSON(company));
     });
