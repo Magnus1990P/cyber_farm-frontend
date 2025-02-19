@@ -1,32 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { useMsal } from '@azure/msal-react';
-import { loginRequest } from '@/app/lib/authConfig';
 import { Company } from "@/app/lib/company";
 import {CompanyCard} from "./companycard";
 
 
 export function CompanyGrid() {
-    const { instance, accounts } = useMsal();
-
     const [isLoading, setLoading] = useState(true)
-    const [authLoading, setAuthLoading] = useState(true)
-    const [accessToken, setAccessToken] = useState(true)
     const [companyList, setCompanyList] = useState([]);
 
     useEffect(() => {
-        instance.acquireTokenSilent({...loginRequest, account: accounts[0], })
-        .then((response) => {
-            setAuthLoading(false);
-            setAccessToken(response.accessToken);
-        });
-    }, [isLoading]);
-
-    useEffect(() => {
-        const headers = new Headers;
-        headers.append("Authorization", `Bearer ${accessToken}`);
-
-        const options = { method: "GET", headers: headers };
+        const options = { method: "GET"};
         fetch("http://localhost:8000/companies/", options)
         .then(response => {
             if(response.ok){ return response.json(); }
@@ -39,8 +22,9 @@ export function CompanyGrid() {
         .catch(function(err) {
             setLoading(false);
             setCompanyList([]);
+            console.log(err);
         });
-    }, [authLoading]);
+    }, []);
 
     if(isLoading){
         return (

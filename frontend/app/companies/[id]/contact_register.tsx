@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
 function handleSubmit(formData:FormData) {
-    var company_id = Number(formData.get("company_id"));
-    var contact_id = formData.get("contact_id");
-    console.log(company_id, contact_id);
+    const company_id = Number(formData.get("company_id"));
+    const contact_id = formData.get("contact_id");
+    
     fetch(`http://localhost:8000/companies/${company_id}/contacts/${contact_id}`, {
       method: "PUT"
     })
@@ -16,9 +16,11 @@ function handleSubmit(formData:FormData) {
     })
     .then(data => {
       alert("Added contact to company");
+      console.log(data);
     })
     .catch(function(err) {
       alert("Failed to add contact to company");
+      console.log(err);
     });
 }
 
@@ -40,6 +42,7 @@ export default function RegisterContact() {
       .catch(function(err) {
           setLoading(false);
           setContactList([]);
+          console.log(err);
       });
   }, []);
   

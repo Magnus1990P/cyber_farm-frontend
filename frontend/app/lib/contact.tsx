@@ -24,7 +24,7 @@ export class Contact implements ContactType {
         });
     }
 
-    static fromJSON(json: any): Contact {
+    static fromJSON(json: object): Contact {
         return new Contact(
             json.id,
             json.name,

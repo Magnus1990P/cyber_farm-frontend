@@ -42,7 +42,7 @@ export function ContactCard({contact}:{contact:Contact}) {
                         </tr>
                     </thead>
                     <tbody>
-                    {contact.companies.map(data => {
+                    {contact.companies.map((data:Company) => {
                         return ( <CompanyRow key={contact.id+'-'+data.id} company={Company.fromJSON(data)} /> );
                     })}
                     </tbody>

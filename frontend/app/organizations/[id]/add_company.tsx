@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import {Company} from '@/app/lib/company';
 
 function handleProductSubmit(formData:FormData) {
     const organization_id = formData.get("organization_id");
@@ -65,7 +66,7 @@ export function RegisterCompany() {
           <form action={handleProductSubmit}>
             <input type="hidden" name="organization_id" value={params.id} />
             <select name="company_id" id="company_id" className="w-3/4 text-black overflow-x-hidden">
-              {company_list.map(company => (
+              {company_list.map((company:Company) => (
                 <option key={`company-${company.id}`} value={company.id} className="">{company.name}</option>
               ))}
             </select>

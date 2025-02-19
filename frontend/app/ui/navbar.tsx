@@ -4,27 +4,6 @@ import Link from 'next/link';
 import '@/app/ui/global.css';
 import { TfiHome, TfiDashboard, TfiUser, TfiBriefcase } from 'react-icons/tfi';
 
-import { SignInButton, SignOutButton } from '@/app/ui/AuthButton';
-
-import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { msalConfig } from '@/app/lib/authConfig';
-
-const msalInstance = new PublicClientApplication(msalConfig);
-
-const AuthButton = () => {
-  return (
-    <>
-      <AuthenticatedTemplate>
-        <SignOutButton /> 
-      </AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
-        <SignInButton />
-      </UnauthenticatedTemplate>
-    </>
-  );
-};
-
 export default function NavBar() {
   const links = [
       {name: "Home",          href:"/",               icon: TfiHome},
@@ -35,13 +14,12 @@ export default function NavBar() {
   ];
 
   return (
-    <div className="flex-nowrap flex-row justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5" >
-      <ul className='flex flex-row items-center'>
-        <li>
-          <MsalProvider instance={msalInstance}>
-            <AuthButton />
-          </MsalProvider>
-        </li> 
+    <div className="flex-nowrap flex-col columns-6 justify-center relative top-0 left-0 w-full bg-white bg-opacity-150 text-black text-2xl md:p-5 md:mb-5 font-mono font-bold" >
+      <p className='text-left font-mono text-black font-extrabold'>
+        CyberFarm
+      </p>
+      
+      <ul className='col-span-4 items-center'>
         {links.map((link) => (
           <li
             key={link.name}
@@ -51,6 +29,7 @@ export default function NavBar() {
           </li>
         ))}
       </ul>
+    
     </div>
   )
 }

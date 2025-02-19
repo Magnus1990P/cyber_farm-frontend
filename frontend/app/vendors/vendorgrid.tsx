@@ -17,6 +17,7 @@ export function VendorGrid() {
         .then(data => {
             setvendorList(data);
             setLoading(false);
+            console.log(typeof(data));
         })
         .catch(function(err) {
             setLoading(false);
@@ -33,6 +34,7 @@ export function VendorGrid() {
         );
     }
     else {
+        console.log(typeof(vendorList));
         return (
             <div key='vendor_list'
                 className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >

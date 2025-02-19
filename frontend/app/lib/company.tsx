@@ -41,7 +41,7 @@ export class Company implements CompanyType {
         this.organization_id = organization_id;
     }
 
-    static fromJSON(json: any): Company {
+    static fromJSON(json: object): Company {
         return new Company(
             json.id,
             json.ekultur_id,

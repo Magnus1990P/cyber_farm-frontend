@@ -15,7 +15,7 @@ export class Product implements ProductType {
         this.vendor_id = vendor_id;
     }
 
-    static fromJSON(json: any): Product {
+    static fromJSON(json: object): Product {
         return new Product(
             json.id,
             json.name,

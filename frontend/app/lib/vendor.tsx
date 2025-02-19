@@ -1,9 +1,5 @@
 import { Product } from "@/app/lib/product";
 
-interface Dictionary<T> {
-    [key: string]: T;
-}
-
 interface VendorType {
     id: number;
     name: string;
@@ -25,7 +21,7 @@ export class Vendor implements VendorType {
         });
     }
 
-    static fromJSON(json: any): Vendor {
+    static fromJSON(json: object): Vendor {
         return new Vendor(
             json.id,
             json.name,

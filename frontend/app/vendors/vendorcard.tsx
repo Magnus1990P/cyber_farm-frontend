@@ -15,7 +15,9 @@ export function VendorCard({vendor}:{vendor:Vendor}) {
   return (
     <div key={'vendor'+vendor.id} className='bg-white shadow-md shadow-black rounded-md' >
       <div className="w-fill text-center" key={'asset_head-'+vendor.id}>
-          <Link href={'/vendors/'+vendor.id}><h1><b>#{vendor.id}</b> - {vendor.name}</h1></Link>
+          <Link href={'/vendors/'+vendor.id}>
+            <p className='font-bold text-2xl'>#{vendor.id} - {vendor.name}</p>
+          </Link>
       </div>
       <table key={vendor.id} className="w-full text-sm text-left rtl:text-right text-black">
         <thead className="text-sm font-bold text-white uppercase bg-gray-500">

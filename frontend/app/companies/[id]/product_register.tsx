@@ -5,8 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
 function handleProductSubmit(formData:FormData) {
-    var company_id = Number(formData.get("company_id"));
-    var product_id = formData.get("product_id");
+    const company_id = Number(formData.get("company_id"));
+    const product_id = formData.get("product_id");
     fetch(`http://localhost:8000/companies/${company_id}/products/${product_id}`, {
       method: "PUT"
     })
@@ -16,9 +16,11 @@ function handleProductSubmit(formData:FormData) {
     })
     .then(data => {
         alert("Added product to company");
+        console.log(data);
     })
     .catch(function(err) {
       alert("Failed to add product to company");
+      console.log(err);
     });
 }
 
@@ -39,6 +41,7 @@ export default function RegisterProduct() {
       })
       .catch(function(err) {
           setLoading(false);
+          console.log(err);
           return []
       });
   }, []);

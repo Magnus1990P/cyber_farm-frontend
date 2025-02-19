@@ -1,14 +1,17 @@
 "use client";
 
+import {Contact} from '@/app/lib/contact';
+import {Product} from '@/app/lib/product';
+import RegisterContact from './contact_register'
+import RegisterProduct from './product_register'
 import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { BiSolidContact, BiCog } from "react-icons/bi";
-import RegisterContact from './contact_register'
-import RegisterProduct from './product_register'
+import { Company } from '@/app/lib/company';
 
 function CompanyInfo() {
     const params = useParams();
-    const [companyData, setCompanyData] = useState([]);
+    const [companyData, setCompanyData] = useState();
     const [isLoading, setLoading] = useState(true)
   
     useEffect(() => {
@@ -17,33 +20,26 @@ function CompanyInfo() {
             if(response.ok){ return response.json(); }
             else{ throw new Error("Failed query", {cause: response}); }
         })
-        .then(data => {
+        .then((data) => {
             setCompanyData(data);
             setLoading(false);
         })
         .catch(function(err) {
-            setLoading(false);
             setCompanyData([]);
+            setLoading(false);
             console.log(err);
         });
-    }, []);
+    }, [params.id]);
 
     if(isLoading){
         return (
-            <div className='col bg-purple-500 p-10 text-center'>
-                <h2>Loading data</h2>
+            <div className='col-span-4 bg-purple-500 mx-fit h-32 text-center'>
+                <p className='text-2xl'>Loading data</p>
             </div>
         );
     }
     else{
-        if(companyData.length == 0){
-            return (
-                <div className='col bg-purple-500 p-10 text-center'>
-                    <h2>No data</h2>
-                </div>
-            );
-        }
-        else{
+        if(companyData){
             return (
                 <>
                     <div className='col col-span-2 bg-white shadow-md py-3 text-w rounded-xl mb-5'>
@@ -57,7 +53,7 @@ function CompanyInfo() {
                     <div className='col col-span-1 row-span-3 ml-5 bg-white shadow-md align-middle rounded-lg'>
                         <p className='ml-10 text-lg font-mono font-bold'>Contacts:</p>
                         <ul className='ml-3'>
-                            {companyData.contacts.map(contact => (
+                            {companyData.contacts.map((contact:Contact) => (
                                 <li key={contact.id} className='flex item-center text-center'>
                                     <BiSolidContact /> {contact.name} - {contact.email}
                                 </li>
@@ -68,7 +64,7 @@ function CompanyInfo() {
                     <div className='col col-span-1 row-span-3 ml-5 bg-white shadow-md align-middle rounded-lg'>
                     <p className='ml-10 text-lg font-mono font-bold'>Products:</p>
                     <ul className='ml-3'>
-                            {companyData.products.map(product => (
+                            {companyData.products.map((product:Product) => (
                                 <li key={product.id} className='flex item-center text-center'>
                                     <BiCog /> &nbsp; {product.id} - {product.name}
                                 </li>
@@ -81,6 +77,15 @@ function CompanyInfo() {
                 </>
             );    
         }
+        
+        else{
+            return (
+                <div className='col-span-4 bg-purple-500 mx-fit h-32 text-center'>
+                    <p className='text-4xl'>No data</p>
+                </div>
+            );
+        }
+
     }
 }
 

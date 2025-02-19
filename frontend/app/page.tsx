@@ -1,21 +1,17 @@
-"use client";
-
-import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { msalConfig } from '@/app/lib/authConfig';
-
-const msalInstance = new PublicClientApplication(msalConfig);
-
+import Image from 'next/image';
 
 const MainContent = () => {
   return (
-      <div className="App">
-          <AuthenticatedTemplate>
-            <p className='text-center text-xl'>AUTHENTICATED - </p>
-          </AuthenticatedTemplate>
-          <UnauthenticatedTemplate>
-            <p className='text-center text-xl'>UNAUTHENTICATED</p>
-          </UnauthenticatedTemplate>
+      <div className="">
+        <Image 
+          src='/cyber-security.png'
+          alt='Cyber security icons created by Eucalyp - Flaticon'
+          width={500}
+          height={500}
+        />
+        <p className='font-extrabold font-mono text-7xl'>
+          CyberFarm CMDB
+        </p>
       </div>
   );
 };
@@ -23,10 +19,8 @@ const MainContent = () => {
 
 export default function Page() {
   return (
-    <div className='max-w-md mx-auto'>
-      <MsalProvider instance={msalInstance}>
-        <MainContent />
-      </MsalProvider>
+    <div className='w-fit justify-center mx-auto my-32'>
+      <MainContent />
     </div>
   );
 }

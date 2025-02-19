@@ -21,6 +21,7 @@ export function ContactGrid() {
         .catch(function(err) {
             setLoading(false);
             setContactList([]);
+            console.log(err);
         });
     }, []);
     
@@ -43,7 +44,7 @@ export function ContactGrid() {
             return (
                 <div key='ContactGrid' className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
                     {contactList.map((data:JSON) => {
-                        var contact = Contact.fromJSON(data);
+                        const contact = Contact.fromJSON(data);
                         return (
                             <ContactCard key={'contact-'+contact.id} contact={contact} />
                         )

@@ -10,10 +10,17 @@ export function OrganizationsGrid() {
     
     useEffect(() => {
         fetch("http://localhost:8000/organizations/?index=false")
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok){ return response.json(); }
+            else { throw new Error("Failed query", {cause: response}); }
+        })
         .then(data => {
             setOrganizationList(data);
             setLoading(false);
+        })
+        .catch(function(err) {
+          console.log(err);
+          setOrganizationList([]);
         });
     }, []);
     
