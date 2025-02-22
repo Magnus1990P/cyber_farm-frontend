@@ -1,17 +1,24 @@
-FROM python:alpine
+# base
+FROM node:19-alpine AS base
+WORKDIR /app
+COPY /frontend/package*.json .
+RUN npm install
+COPY /frontend/* .
 
-RUN apk add build-base libpq libpq-dev
 
-COPY ./requirements.txt /tmp/requirements.txt
-RUN pip install --upgrade pip && pip install --no-cache-dir --upgrade -r /tmp/requirements.txt
+FROM base as builder
+WORKDIR /app
+RUN ls
+RUN npm run build
 
-RUN mkdir -p /cyberfarm
-WORKDIR /cyberfarm
 
-COPY . ./
+FROM node:19-alpine
+WORKDIR /app
+COPY /frontend/package*.json .
+COPY --from=builder /app/dist .
+WORKDIR /app/frontend
+RUN npm install --only=production
 
-RUN pip install --no-cache-dir -e .
+EXPOSE 3000
 
-WORKDIR ./app
-
-CMD  ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+RUN npm run start

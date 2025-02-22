@@ -1,0 +1,10 @@
+*
+!/frontend/app
+!/public
+/frontend/app/node_modules
+!/*.ts
+!/package*.json
+!/*.mjs
+!/tsconfig.json
+!/tailwind.config.ts
+
