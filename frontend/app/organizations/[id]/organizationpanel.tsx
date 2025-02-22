@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { BiSolidContact, BiSolidChevronRight, BiCog } from "react-icons/bi";
 import Link from "next/link";
 import {RegisterCompany} from './add_company'
+import { Vendor } from '@/app/lib/vendor';
 
 export function OrganizationPanel() {
   const params = useParams();
@@ -15,6 +16,16 @@ export function OrganizationPanel() {
   const [organization, setOrganization] = useState([]);
   const [isLoading, setLoading] = useState(true)
   const [isLoadingVendors, setLoadingVendors] = useState(true)
+
+  function VendorText( vendorId:any ){
+    let vendor = (vendors as Vendor[]).find((item:Vendor)=>item.id==vendorId);
+    if(typeof vendor === "object" && vendor !== null){
+      return (<>{vendor.name}</>)
+    }
+    else{
+      return (<>Unknown</>)
+    }
+  }
 
   useEffect(() => {
       fetch("http://localhost:8000/vendors/?query=list")
@@ -57,27 +68,33 @@ export function OrganizationPanel() {
     );
   }
   else {
-    if(organization.length == 0){
-        return (
-            <div className='col bg-purple-500 p-10 text-center'>
-                <h2>No data</h2>
-            </div>
-        );
-    }
-    else{
+    if(
+        typeof organization === "object" && 
+        "organization" in organization && 
+        "contacts" in organization && 
+        "companies" in organization && 
+        "products" in organization &&
+        typeof vendors === "object"
+      ){
+      
+      const org_object = organization.organization as Company;
+      const contacts = organization.contacts as Contact[];
+      const companies = organization.companies as Company[];
+      const products = organization.products as Product[];
+      
       return (
         <div className='grid mx-10 space-y-5 grid-cols-3 space-x-5'>
           <div className='col col-span-3 bg-white  shadow-md p-5 text-center rounded-xl shadow-black'>
-            <p className='text-xl'>{organization.organization.name} ({organization.organization.short_name})</p>
-            <p className=''>eKultur ID: {organization.organization.ekultur_id}</p>
-            <p className=''>Organization {organization.organization.isMember ? "is" : "is not"} a member of the KulturIT ISAC</p>
-            <p className=''>Member has {organization.organization.noticeHCERT ? "refused" : "approved"} notifications to HelseCERT</p>
+            <p className='text-xl'>{(org_object).name} ({org_object.short_name})</p>
+            <p className=''>eKultur ID: {org_object.ekultur_id}</p>
+            <p className=''>Organization {org_object.isMember ? "is" : "is not"} a member of the KulturIT ISAC</p>
+            <p className=''>Member has {org_object.noticeHCERT ? "refused" : "approved"} notifications to HelseCERT</p>
           </div>
 
           <div className='col w-auto col-span-3 bg-gray-900 text-white shadow-md p-5 text-center rounded-xl shadow-white'>
             <p className='text-xl underline font-medium'>All contacts</p>
             <p className='font-mono'>
-              {organization.contacts.map((tag:Contact, i:number) => {
+              {contacts.map((tag:Contact, i:number) => {
                 if (i>0) return ("; " + tag.email);
                 else return (tag.email);
               })}
@@ -88,7 +105,7 @@ export function OrganizationPanel() {
             <p className='text-xl underline text-left font-medium p-5'>Companies</p>
             <RegisterCompany />
             <ul className='p-5'>
-              {organization.companies.map((company:Company) => (
+              {companies.map((company:Company) => (
                   <li key={company.id} className='flex'>
                       <BiSolidChevronRight /> <Link href={"/companies/"+company.id}>{company.name}</Link>
                   </li>
@@ -98,7 +115,7 @@ export function OrganizationPanel() {
 
           <div className='col bg-white shadow-md p-5 text-center rounded-xl shadow-black'>
             <p className='text-xl underline font-medium'>Contacts (global)</p>
-              {organization.contacts.map((contact:Contact) => (
+              {contacts.map((contact:Contact) => (
                   <li key={contact.id} className='flex'>
                       <BiSolidContact /> <Link href={"/contacts/"+contact.id}>{contact.name} - {contact.email} - {contact.phone}</Link>
                   </li>
@@ -107,15 +124,22 @@ export function OrganizationPanel() {
           
           <div className='col bg-white shadow-md p-5 text-center rounded-xl shadow-black'>
             <p className='text-xl underline font-medium'>Products (global)</p>
-              {organization.products.map((product:Product) => (
+              {products.map((product:Product) => (
                   <li key={product.id} className='flex'>
                       <BiCog /> <Link href={"/assets/"+product.vendor_id}>
-                        {(vendors.find((item)=>item.id===product.vendor_id)).name} - {product.name}
+                        <VendorText vendorId={product.vendor_id as number} /> - {product.name}
                       </Link>
                   </li>
               ))}
           </div>
         </div>
+      );
+    }
+    else{
+      return (
+          <div className='col bg-purple-500 p-10 text-center'>
+              <h2>No data</h2>
+          </div>
       );
     }
   }

@@ -15,7 +15,7 @@ export function CompanyGrid() {
             if(response.ok){ return response.json(); }
             else{ throw new Error("Failed query", {cause: response}); }
         })
-        .then(data => {
+        .then((data:any) => {
             setCompanyList(data);
             setLoading(false);
         })
@@ -37,9 +37,9 @@ export function CompanyGrid() {
         return (
             <div  key='company_list' 
                 className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                {companyList.map((data:JSON) => {
+                {(companyList as Company[]).map((data:Company) => {
                     return(
-                        <CompanyCard key={data.id} company={Company.fromJSON(data)} />
+                        <CompanyCard key={data.id} company={data} />
                     )
                 })}
             </div>

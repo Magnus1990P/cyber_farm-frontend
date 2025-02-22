@@ -21,7 +21,7 @@ export class Vendor implements VendorType {
         });
     }
 
-    static fromJSON(json: object): Vendor {
+    static fromJSON(json: any): Vendor {
         return new Vendor(
             json.id,
             json.name,

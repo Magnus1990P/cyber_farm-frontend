@@ -14,13 +14,13 @@ export class Organization implements OrganizationType {
       this.companies = companies;
   }
 
-  static fromJSON(json: object): Organization {
+  static fromJSON(json: any): Organization {
     const company_list: Company[] = [];
-    json.companies.map((company:Company) => {
+    (json.companies as Company[]).map((company:Company) => {
       company_list.push(Company.fromJSON(company));
     });
     return new Organization(
-        Company.fromJSON(json.organization),
+        json.organization as Company,
         company_list
     );
   }

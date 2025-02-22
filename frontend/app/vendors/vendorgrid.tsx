@@ -34,13 +34,12 @@ export function VendorGrid() {
         );
     }
     else {
-        console.log(typeof(vendorList));
         return (
             <div key='vendor_list'
                 className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                {vendorList.map((data:JSON) => {
+                {(vendorList as Vendor[]).map((data:Vendor) => {
                     return (
-                        <VendorCard key={data.id} vendor={Vendor.fromJSON(data)} />
+                        <VendorCard key={data.id} vendor={data} />
                     );
                 })}
             </div>

@@ -27,24 +27,23 @@ export function ContactGrid() {
     
     if(isLoading){
         return (
-            <div key='Loading' className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                <h1>failed to retrieve contact data</h1>
+            <div className='col bg-gray-900 mx-auto w-3/4 rounded-md p-10 text-center'>
+                <p className='text-lg text-green-600 font-bold font-mono'>Loading data</p>
             </div>
         );
     }
     else {
         if(contactList.length == 0){
             return (
-                <div className='col bg-purple-500 p-10 text-center'>
-                    <h2>No data</h2>
+                <div className='col bg-gray-900 mx-auto w-3/4 rounded-md p-10 text-center'>
+                    <p className='text-xl text-blue-600 font-bold font-mono'>No data</p>
                 </div>
             );
         }
         else{
             return (
                 <div key='ContactGrid' className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                    {contactList.map((data:JSON) => {
-                        const contact = Contact.fromJSON(data);
+                    {(contactList as Contact[]).map((contact:Contact) => {
                         return (
                             <ContactCard key={'contact-'+contact.id} contact={contact} />
                         )

@@ -24,10 +24,11 @@ export class Company implements CompanyType {
     products: number[];
     organization_id: number;
   
-    constructor(id:number, ekultur_id: string, short_name: string, name: string, 
-          isMember: boolean, noticeHCERT: boolean, organization_number: string,
-          organization: number, contacts: number[], products: number[],
-          organization_id: number) {
+    constructor(id:number, ekultur_id: string, short_name: string, 
+        name: string, isMember: boolean, noticeHCERT: boolean,
+        organization_number: string, organization: number, 
+        contacts: number[], products: number[], 
+        organization_id: number) {
         this.id = id;
         this.ekultur_id = ekultur_id;
         this.short_name = short_name;
@@ -41,7 +42,7 @@ export class Company implements CompanyType {
         this.organization_id = organization_id;
     }
 
-    static fromJSON(json: object): Company {
+    static fromJSON(json: any): Company {
         return new Company(
             json.id,
             json.ekultur_id,

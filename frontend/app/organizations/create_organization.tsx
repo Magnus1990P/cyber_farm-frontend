@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import { Company } from '@/app/lib/company';
 
 
 export function CreateOrganization() {
@@ -68,7 +69,7 @@ export function CreateOrganization() {
               type="submit">Create organization based on:</button>
             <input type="hidden" name="organization_id" value={params.id} />
             <select name="company_id" id="company_id" className="w-96 text-black p-1">
-              {company_list.map(company => (
+              {company_list.map((company:Company) => (
                 <option key={`company-${company.id}`} value={company.id} className="">{company.name}</option>
               ))}
             </select>
