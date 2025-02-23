@@ -1,10 +1,7 @@
-*
-!/frontend/app
-!/public
+LICENSE
+README.md
+.gitignore
+.dockerignore
+/frontend/.next
+/frontend/node_modules
 /frontend/app/node_modules
-!/*.ts
-!/package*.json
-!/*.mjs
-!/tsconfig.json
-!/tailwind.config.ts
-
