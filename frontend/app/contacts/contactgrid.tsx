@@ -1,7 +1,8 @@
 "use client";
 
-import { Contact } from "@/app/lib/contact";
 import React, { useState, useEffect } from 'react';
+
+import { Contact } from "@/app/lib/contact";
 import {ContactCard} from "./contactcard";
 
 export function ContactGrid() {
@@ -9,7 +10,7 @@ export function ContactGrid() {
     const [isLoading, setLoading] = useState(true)
     
     useEffect(() => {
-        fetch("http://localhost:8000/contacts/")
+        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/contacts/`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else{ throw new Error("Failed query", {cause: response}); }

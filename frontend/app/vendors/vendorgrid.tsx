@@ -1,6 +1,8 @@
 "use client";
-import { Vendor } from "@/app/lib/vendor";
+
 import React, { useState, useEffect } from 'react';
+
+import { Vendor } from "@/app/lib/vendor";
 import {VendorCard} from "./vendorcard"
 
 
@@ -9,7 +11,7 @@ export function VendorGrid() {
     const [isLoading, setLoading] = useState(true)
     
     useEffect(() => {
-        fetch("http://localhost:8000/vendors/")
+        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else { throw new Error("Failed query", {cause: response}); }

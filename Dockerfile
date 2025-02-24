@@ -14,4 +14,5 @@ RUN npm run build
 FROM base AS release
 COPY --from=build /usr/src/app/ ./
 EXPOSE 3000
-RUN npm run start
+COPY /frontend/.env ./
+CMD ["npm", "run", "start"]

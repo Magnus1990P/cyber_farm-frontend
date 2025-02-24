@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 
 import { Company } from "@/app/lib/company";
@@ -5,12 +6,13 @@ import {CompanyCard} from "./companycard";
 
 
 export function CompanyGrid() {
+    //const { api_host, api_port } = require('@/app/lib/config');
     const [isLoading, setLoading] = useState(true)
     const [companyList, setCompanyList] = useState([]);
 
     useEffect(() => {
         const options = { method: "GET"};
-        fetch("http://localhost:8000/companies/", options)
+        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/`, options)
         .then(response => {
             if(response.ok){ return response.json(); }
             else{ throw new Error("Failed query", {cause: response}); }

@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom";
 
 function handleSubmit(formData:FormData) {
-  fetch(`http://localhost:8000/companies`, {
+  fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies`, {
     method: "POST",
     body: JSON.stringify(formData)
   })

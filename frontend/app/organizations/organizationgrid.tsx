@@ -1,15 +1,18 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+
+
 import {Organization} from '@/app/lib/organization';
 import {OrganizationCard} from './organizationcard';
-import React, { useState, useEffect } from 'react';
+
 
 export function OrganizationsGrid() {
     const [organizationList, setOrganizationList] = useState([]);
     const [isLoading, setLoading] = useState(true)
     
     useEffect(() => {
-        fetch("http://localhost:8000/organizations/?index=false")
+        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations/?index=false`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else { throw new Error("Failed query", {cause: response}); }

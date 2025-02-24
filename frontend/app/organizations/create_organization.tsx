@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+
 import { Company } from '@/app/lib/company';
 
 
@@ -12,7 +13,7 @@ export function CreateOrganization() {
 
   function handleProductSubmit(formData:FormData) {
       const company_id = Number(formData.get("company_id"));
-      fetch(`http://localhost:8000/organizations?company_id=${company_id}`, {
+      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations?company_id=${company_id}`, {
         method: "POST"
       })
       .then(response => {
@@ -30,7 +31,7 @@ export function CreateOrganization() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8000/companies/`)
+    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }

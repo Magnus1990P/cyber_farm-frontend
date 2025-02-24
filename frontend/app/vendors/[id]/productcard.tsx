@@ -1,7 +1,6 @@
-
+import React from 'react';
 import Link from "next/link";
 import { BiSolidBusiness, BiSolidContact } from "react-icons/bi";
-import React from 'react';
 
 import {Product} from '@/app/lib/product';
 import {Company} from "@/app/lib/company";

@@ -2,26 +2,27 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+
 import {Company} from '@/app/lib/company';
 
 function handleProductSubmit(formData:FormData) {
-    const organization_id = formData.get("organization_id");
-    const company_id = Number(formData.get("company_id"));
-    fetch(`http://localhost:8000/organizations/${organization_id}/companies/${company_id}`, {
-      method: "PUT"
-    })
-    .then(response => {
-        if(response.ok){ return response.json(); }
-        else { throw new Error("Failed query", {cause: response}); }
-    })
-    .then(data => {
-        alert("Added company to organization");
-        console.log(data);
-    })
-    .catch(function(err) {
-      alert("Failed to add company");
-      console.log(err);
-    });
+  const organization_id = formData.get("organization_id");
+  const company_id = Number(formData.get("company_id"));
+  fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations/${organization_id}/companies/${company_id}`, {
+    method: "PUT"
+  })
+  .then(response => {
+      if(response.ok){ return response.json(); }
+      else { throw new Error("Failed query", {cause: response}); }
+  })
+  .then(data => {
+      alert("Added company to organization");
+      console.log(data);
+  })
+  .catch(function(err) {
+    alert("Failed to add company");
+    console.log(err);
+  });
 }
 
 export function RegisterCompany() {
@@ -30,7 +31,7 @@ export function RegisterCompany() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://localhost:8000/companies/`)
+    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }

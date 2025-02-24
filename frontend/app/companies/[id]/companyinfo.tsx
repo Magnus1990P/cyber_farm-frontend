@@ -1,12 +1,13 @@
 "use client";
 
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { BiSolidContact, BiCog } from "react-icons/bi";
+
 import {Contact} from '@/app/lib/contact';
 import {Product} from '@/app/lib/product';
 import RegisterContact from './contact_register'
 import RegisterProduct from './product_register'
-import { useParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
-import { BiSolidContact, BiCog } from "react-icons/bi";
 
 function CompanyInfo() {
     const params = useParams();
@@ -14,7 +15,7 @@ function CompanyInfo() {
     const [isLoading, setLoading] = useState(true)
   
     useEffect(() => {
-        fetch(`http://localhost:8000/companies/${params.id}?query=all`)
+        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/${params.id}?query=all`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else{ throw new Error("Failed query", {cause: response}); }

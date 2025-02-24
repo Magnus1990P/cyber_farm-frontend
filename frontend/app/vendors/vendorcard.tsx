@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import {Vendor} from '@/app/lib/vendor';
 import {Product} from '@/app/lib/product';
-import Link from "next/link";
 
 function ProductRow({product}:{product:Product}) {
   return (

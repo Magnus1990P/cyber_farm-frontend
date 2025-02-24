@@ -2,27 +2,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+
 import { Contact } from '@/app/lib/contact';
 
 function handleSubmit(formData:FormData) {
-    const company_id = Number(formData.get("company_id"));
-    const contact_id = formData.get("contact_id");
-    
-    fetch(`http://localhost:8000/companies/${company_id}/contacts/${contact_id}`, {
-      method: "PUT"
-    })
-    .then(response => {
-        if(response.ok){ return response.json(); }
-        else{ throw new Error("Failed query", {cause: response}); }
-    })
-    .then(data => {
-      alert("Added contact to company");
-      console.log(data);
-    })
-    .catch(function(err) {
-      alert("Failed to add contact to company");
-      console.log(err);
-    });
+  const company_id = Number(formData.get("company_id"));
+  const contact_id = formData.get("contact_id");
+  
+  fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/${company_id}/contacts/${contact_id}`, {
+    method: "PUT"
+  })
+  .then(response => {
+      if(response.ok){ return response.json(); }
+      else{ throw new Error("Failed query", {cause: response}); }
+  })
+  .then(data => {
+    alert("Added contact to company");
+    console.log(data);
+  })
+  .catch(function(err) {
+    alert("Failed to add contact to company");
+    console.log(err);
+  });
 }
 
 export default function RegisterContact() {
@@ -31,7 +32,7 @@ export default function RegisterContact() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://localhost:8000/contacts?query=list`)
+    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/contacts?query=list`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }

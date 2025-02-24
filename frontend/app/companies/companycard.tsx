@@ -1,5 +1,7 @@
-import { Company } from "@/app/lib/company";
+
 import Link from "next/link";
+
+import { Company } from "@/app/lib/company";
 
 export function CompanyCard({company}:{company:Company}) {
     return (

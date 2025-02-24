@@ -1,14 +1,14 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
 import React from 'react';
+import { useFormStatus } from "react-dom";
 import { useParams } from 'next/navigation';
 
 function handleSubmit(formData:FormData) {
   const name = formData.get("name");
   const email = formData.get("email");
   const phone = formData.get("phone");
-  fetch(`http://localhost:8000/contacts?name=${name}&email=${email}&phone=${phone}`, {
+  fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/contacts?name=${name}&email=${email}&phone=${phone}`, {
     method: "POST"
   })
   .then(response => {

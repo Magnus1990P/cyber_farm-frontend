@@ -1,5 +1,7 @@
-import {Organization} from '@/app/lib/organization';
+
 import Link from "next/link";
+
+import {Organization} from '@/app/lib/organization';
 
 export function OrganizationCard({organization}: {organization:Organization}) {
     return (

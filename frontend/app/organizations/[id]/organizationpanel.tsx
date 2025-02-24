@@ -1,14 +1,15 @@
 'use client';
 
-import {Company} from '@/app/lib/company';
-import {Contact} from '@/app/lib/contact';
-import {Product} from '@/app/lib/product';
-import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { BiSolidContact, BiSolidChevronRight, BiCog } from "react-icons/bi";
 import Link from "next/link";
+
+import {Contact} from '@/app/lib/contact';
+import {Vendor} from '@/app/lib/vendor';
+import {Product} from '@/app/lib/product';
+import {Company} from '@/app/lib/company';
 import {RegisterCompany} from './add_company'
-import { Vendor } from '@/app/lib/vendor';
 
 export function OrganizationPanel() {
   const params = useParams();
@@ -28,7 +29,7 @@ export function OrganizationPanel() {
   }
 
   useEffect(() => {
-      fetch("http://localhost:8000/vendors/?query=list")
+      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/?query=list`)
       .then(response => {
           if(response.ok){ return response.json(); }
           else{ throw new Error("Failed query", {cause: response}); }
@@ -43,7 +44,7 @@ export function OrganizationPanel() {
           setLoadingVendors(false);
       });
 
-      fetch("http://localhost:8000/organizations/"+params.id)
+      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations/${params.id}`)
       .then(response => {
           if(response.ok){ return response.json(); }
           else{ throw new Error("Failed query", {cause: response}); }

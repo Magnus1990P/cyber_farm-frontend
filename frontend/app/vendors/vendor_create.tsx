@@ -1,10 +1,12 @@
 "use client";
-import { useFormStatus } from "react-dom";
+
 import React from 'react';
+import { useFormStatus } from "react-dom";
+
 
 function handleSubmit(formData:FormData) {
   const vendor_name = formData.get("name");
-  fetch(`http://localhost:8000/vendors/?name=${vendor_name}`, {
+  fetch(`http://$${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/?name=${vendor_name}`, {
     method: "POST"
   })
   .then(response => {

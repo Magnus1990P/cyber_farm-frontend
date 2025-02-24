@@ -4,12 +4,11 @@ import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { BiCog } from "react-icons/bi";
 
-import NewProduct from './product_create';
 import { Vendor } from '@/app/lib/vendor';
 import { Contact } from '@/app/lib/contact';
 import { Company } from '@/app/lib/company';
 import { Product } from '@/app/lib/product';
-
+import NewProduct from './product_create';
 import { ProductCard } from './productcard';
 
 function VendorInfo() {
@@ -19,7 +18,7 @@ function VendorInfo() {
     const used_contacts:number[] = [];
   
     useEffect(() => {
-      fetch(`http://localhost:8000/vendors/${params.id}?query=vendorview`)
+      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/${params.id}?query=vendorview`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else { throw new Error("Failed query", {cause: response}); }

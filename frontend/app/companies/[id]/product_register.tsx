@@ -3,27 +3,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+
 import { Product } from '@/app/lib/product';
 import { Vendor } from '@/app/lib/vendor';
 
 function handleProductSubmit(formData:FormData) {
-    const company_id = Number(formData.get("company_id"));
-    const product_id = formData.get("product_id");
-    fetch(`http://localhost:8000/companies/${company_id}/products/${product_id}`, {
-      method: "PUT"
-    })
-    .then(response => {
-        if(response.ok){ return response.json(); }
-        else { throw new Error("Failed query", {cause: response}); }
-    })
-    .then(data => {
-        alert("Added product to company");
-        console.log(data);
-    })
-    .catch(function(err) {
-      alert("Failed to add product to company");
-      console.log(err);
-    });
+  const company_id = Number(formData.get("company_id"));
+  const product_id = formData.get("product_id");
+  fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/${company_id}/products/${product_id}`, {
+    method: "PUT"
+  })
+  .then(response => {
+      if(response.ok){ return response.json(); }
+      else { throw new Error("Failed query", {cause: response}); }
+  })
+  .then(data => {
+      alert("Added product to company");
+      console.log(data);
+  })
+  .catch(function(err) {
+    alert("Failed to add product to company");
+    console.log(err);
+  });
 }
 
 export default function RegisterProduct() {
@@ -32,7 +33,7 @@ export default function RegisterProduct() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://localhost:8000/vendors/?query=all`)
+    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/?query=all`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }
