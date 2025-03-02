@@ -14,7 +14,6 @@ function handleSubmit(formData:FormData) {
       else { throw new Error("Failed query", {cause: response}); }
   })
   .then(data => {
-      alert("Created vendor");
       console.log(data);
   })
   .catch(function(err) {

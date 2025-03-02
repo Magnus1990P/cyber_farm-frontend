@@ -14,33 +14,20 @@ import { ProductCard } from './productcard';
 function VendorInfo() {
     const params = useParams();
     const [vendorData, setVendorData] = useState();
-    const [isLoading, setLoading] = useState(true)
     const used_contacts:number[] = [];
-  
-    useEffect(() => {
-      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/${params.id}?query=vendorview`)
-        .then(response => {
-            if(response.ok){ return response.json(); }
-            else { throw new Error("Failed query", {cause: response}); }
-        })
-        .then(data => {
-            setVendorData(data);
-            setLoading(false);
-        })
-        .catch(function(err) {
-          alert("Creation failed");
-          console.log(err);
-        });
-    }, [params.id]);
+    
 
-    if(isLoading){
-        return (
-            <div className='col bg-purple-500 p-10 text-center'>
-                <h2>Loading data</h2>
-            </div>
-        );
+    const fetchData = async () => {
+        const response = await fetch(`/api/vendors/${params.id}`)
+        const data = await response.json();
+        setVendorData(data);
     }
-    else if( typeof vendorData === "object" ) {
+
+    useEffect(() => {
+        fetchData();
+    },[]);
+
+    if( typeof vendorData === "object" ) {
         let vendor:Vendor = vendorData as Vendor;
         return (
             <>

@@ -8,43 +8,30 @@ import {VendorCard} from "./vendorcard"
 
 export function VendorGrid() {
     const [vendorList, setvendorList] = useState([]);
-    const [isLoading, setLoading] = useState(true)
     
     useEffect(() => {
-        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/`)
+        fetch(`/api/vendors/`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else { throw new Error("Failed query", {cause: response}); }
         })
         .then(data => {
             setvendorList(data);
-            setLoading(false);
-            console.log(typeof(data));
         })
         .catch(function(err) {
-            setLoading(false);
             setvendorList([]);
             console.log(err);
         });
-    }, []);
+    },[]);
     
-    if(isLoading){
-        return (
-            <div key='vendor_list' className='col bg-purple-500 p-10 text-center'>
-                <h2>Loading data</h2>
-            </div>
-        );
-    }
-    else {
-        return (
-            <div key='vendor_list'
-                className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                {(vendorList as Vendor[]).map((data:Vendor) => {
-                    return (
-                        <VendorCard key={data.id} vendor={data} />
-                    );
-                })}
-            </div>
-        );
-    }
+    return (
+        <div key='vendor_list'
+            className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
+            {(vendorList as Vendor[]).map((data:Vendor) => {
+                return (
+                    <VendorCard key={data.id} vendor={data} />
+                );
+            })}
+        </div>
+    );
 };

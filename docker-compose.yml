@@ -1,0 +1,14 @@
+networks:
+  cyberfarm_backend:
+    external: false
+
+services:
+  frontend:
+    image: cff:latest
+    build: .
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - cyberfarm_backend

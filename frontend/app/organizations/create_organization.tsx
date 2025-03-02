@@ -31,19 +31,17 @@ export function CreateOrganization() {
   }
 
   useEffect(() => {
-    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/`)
+    fetch(`/api/companies`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }
     })
       .then(data => {
         setCompanyList(data);
-        setLoading(false);
       })
       .catch(function(err) {
-          setLoading(false);
+          setCompanyList([]);
           console.log(err);
-          return []
       });
   }, []);
   

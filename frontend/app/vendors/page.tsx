@@ -1,10 +1,10 @@
 import {VendorGrid} from './vendorgrid'
-import {NewVendor} from './vendor_create'
-
+//import {NewVendor} from './vendor_create'
+//<NewVendor />
+      
 export default function Page() {
   return (
     <>
-      <NewVendor />
       <VendorGrid />
     </>
   );

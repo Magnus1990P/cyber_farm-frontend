@@ -33,7 +33,7 @@ export default function RegisterProduct() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/?query=all`)
+    fetch(`/api/vendors?query=all`)
     .then(response => {
         if(response.ok){ return response.json(); }
         else{ throw new Error("Failed query", {cause: response}); }

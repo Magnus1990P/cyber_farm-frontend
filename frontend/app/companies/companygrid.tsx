@@ -6,45 +6,31 @@ import {CompanyCard} from "./companycard";
 
 
 export function CompanyGrid() {
-    //const { api_host, api_port } = require('@/app/lib/config');
-    const [isLoading, setLoading] = useState(true)
     const [companyList, setCompanyList] = useState([]);
 
     useEffect(() => {
-        const options = { method: "GET"};
-        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/companies/`, options)
+        fetch(`/api/companies?query=all`)
         .then(response => {
             if(response.ok){ return response.json(); }
-            else{ throw new Error("Failed query", {cause: response}); }
+            else { throw new Error("Failed query", {cause: response}); }
         })
-        .then((data:any) => {
+        .then(data => {
             setCompanyList(data);
-            setLoading(false);
         })
         .catch(function(err) {
-            setLoading(false);
             setCompanyList([]);
             console.log(err);
         });
-    }, []);
+    },[]);
 
-    if(isLoading){
-        return (
-            <div key='company_list' className='col bg-gray-500 p-10 text-center'>
-                <h2>Loading data</h2>
-            </div>
-        );
-    }
-    else {
-        return (
-            <div  key='company_list' 
-                className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-                {(companyList as Company[]).map((data:Company) => {
-                    return(
-                        <CompanyCard key={data.id} company={data} />
-                    )
-                })}
-            </div>
-        );
-    }
+    return (
+        <div  key='company_list' 
+            className='grid justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
+            {(companyList as Company[]).map((data:Company) => {
+                return(
+                    <CompanyCard key={data.id} company={data} />
+                )
+            })}
+        </div>
+    );
 }

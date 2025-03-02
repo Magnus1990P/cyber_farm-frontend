@@ -2,48 +2,37 @@
 
 import React, { useState, useEffect } from 'react';
 
-
 import {Organization} from '@/app/lib/organization';
 import {OrganizationCard} from './organizationcard';
 
-
 export function OrganizationsGrid() {
     const [organizationList, setOrganizationList] = useState([]);
-    const [isLoading, setLoading] = useState(true)
-    
+
     useEffect(() => {
-        fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations/?index=false`)
+        fetch(`/api/organizations/`)
         .then(response => {
             if(response.ok){ return response.json(); }
             else { throw new Error("Failed query", {cause: response}); }
         })
         .then(data => {
             setOrganizationList(data);
-            setLoading(false);
+            console.log(data);
         })
         .catch(function(err) {
-          console.log(err);
-          setOrganizationList([]);
+            setOrganizationList([]);
+            console.log(err);
         });
-    }, []);
+    },[]);
     
-    if(isLoading) {
+    return (
         <div key='organization'
-            className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5' >
-            <h1>Loading data</h1>
+            className='grid justify-center auto-rows-auto md:grid-cols-4 mx-5 gap-5' >
+            {organizationList.map((data:JSON) => {
+                const organization = Organization.fromJSON(data);
+                return(
+                    <OrganizationCard key={organization.organization.id} organization={organization} />
+                )
+            })}
         </div>
-    }
-    else {
-        return (
-            <div key='organization'
-                className='grid justify-center auto-rows-auto md:grid-cols-4 mx-5 gap-5' >
-                {organizationList.map((data:JSON) => {
-                    const organization = Organization.fromJSON(data);
-                    return(
-                        <OrganizationCard key={organization.organization.id} organization={organization} />
-                    )
-                })}
-            </div>
-        )
-    }
+    )
 }

@@ -15,8 +15,6 @@ export function OrganizationPanel() {
   const params = useParams();
   const [vendors, setVendor] = useState([]);
   const [organization, setOrganization] = useState([]);
-  const [isLoading, setLoading] = useState(true)
-  const [isLoadingVendors, setLoadingVendors] = useState(true)
 
   function VendorText( vendorId:any ){
     let vendor = (vendors as Vendor[]).find((item:Vendor)=>item.id==vendorId);
@@ -29,46 +27,34 @@ export function OrganizationPanel() {
   }
 
   useEffect(() => {
-      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/vendors/?query=list`)
+      fetch(`/api/vendors/?query=list`)
       .then(response => {
           if(response.ok){ return response.json(); }
           else{ throw new Error("Failed query", {cause: response}); }
       })
       .then(data => {
-          setLoadingVendors(false);
           setVendor(data);
       })
       .catch(function(err) {
           setVendor([]);
           console.log(err);
-          setLoadingVendors(false);
       });
 
-      fetch(`http://${process.env.NEXT_PUBLIC_API_HOST}:${process.env.NEXT_PUBLIC_API_PORT}/organizations/${params.id}`)
+      fetch(`/api/organizations/${params.id}`)
       .then(response => {
           if(response.ok){ return response.json(); }
-          else{ throw new Error("Failed query", {cause: response}); }
+          else { throw new Error("Failed query", {cause: response}); }
       })
       .then(data => {
-          setOrganization(data);
-          setLoading(false);
+        setOrganization(data);
       })
       .catch(function(err) {
-          setOrganization([]);
-          setLoading(false);
+        setOrganization([]);
           console.log(err);
       });
-  }, [params.id]);
+  }, []);
 
-  if(isLoading || isLoadingVendors) {
-    return (
-      <div key='organization'
-          className='flex justify-center auto-rows-auto md:grid-cols-3 mx-5 gap-5'>
-          <h1>failed to retrieve data</h1>
-      </div>
-    );
-  }
-  else {
+  
     if(
         typeof organization === "object" && 
         "organization" in organization && 
@@ -136,12 +122,4 @@ export function OrganizationPanel() {
         </div>
       );
     }
-    else{
-      return (
-          <div className='col bg-purple-500 p-10 text-center'>
-              <h2>No data</h2>
-          </div>
-      );
-    }
   }
-}
