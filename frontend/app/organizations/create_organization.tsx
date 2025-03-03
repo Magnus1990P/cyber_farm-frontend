@@ -9,7 +9,6 @@ import { Company } from '@/app/lib/company';
 export function CreateOrganization() {
   const params = useParams();
   const [company_list, setCompanyList] = useState([]);
-  const [isLoading, setLoading] = useState(true)
 
   function handleProductSubmit(formData:FormData) {
       const company_id = Number(formData.get("company_id"));
@@ -45,36 +44,20 @@ export function CreateOrganization() {
       });
   }, []);
   
-  if(isLoading){
-    return (
-        <div className='col bg-purple-500 p-10 text-center'>
-            <h2>Loading data</h2>
-        </div>
-    );
-  }
-  else {
-    if(company_list.length==0){
-      return (
-        <div className='col bg-gray-900 shadow-lg shadow-black rounded-xl col-span-2 p-5 text-orange-500'>
-        </div>
-      );
-    }
-    else{
-      return (
-        <div className='bg-gray-700 shadow-lg shadow-black rounded-xl m-5 p-5 text-orange-500'>
-          <form action={handleProductSubmit}>
-            <button
-              className='text-orange font-mono rounded-lg px-3 mr-5 py-1 bg-gray-800 hover:bg-gray-700 focus:ring-gray-700 border-gray-700'
-              type="submit">Create organization based on:</button>
-            <input type="hidden" name="organization_id" value={params.id} />
-            <select name="company_id" id="company_id" className="w-96 text-black p-1">
-              {company_list.map((company:Company) => (
-                <option key={`company-${company.id}`} value={company.id} className="">{company.name}</option>
-              ))}
-            </select>
-          </form>
-        </div>
-      );
-    }
-  }
+
+  return (
+    <div className='bg-gray-700 shadow-lg shadow-black rounded-xl m-5 p-5 text-orange-500'>
+      <form action={handleProductSubmit}>
+        <button
+          className='text-orange font-mono rounded-lg px-3 mr-5 py-1 bg-gray-800 hover:bg-gray-700 focus:ring-gray-700 border-gray-700'
+          type="submit">Create organization based on:</button>
+        <input type="hidden" name="organization_id" value={params.id} />
+        <select name="company_id" id="company_id" className="w-96 text-black p-1">
+          {company_list.map((company:Company) => (
+            <option key={`company-${company.id}`} value={company.id} className="">{company.name}</option>
+          ))}
+        </select>
+      </form>
+    </div>
+  );
 }
