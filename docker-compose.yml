@@ -8,6 +8,9 @@ services:
     build: .
     container_name: frontend
     restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_API_HOST=api
+      - NEXT_PUBLIC_API_PORT=2000
     ports:
       - 3000:3000
     networks:
