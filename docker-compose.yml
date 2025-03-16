@@ -5,7 +5,9 @@ services:
     container_name: frontend
     restart: unless-stopped
     environment:
-      - "API_HOST=backend"
-      - "API_PORT=5000"
+      - "NEXT_PUBLIC_API_HOST=${CFFBackendHost}"
+      - "NEXT_PUBLIC_API_PORT=${CFFBackendPort}"
     ports:
       - 3000:3000
+    networks:
+      - cyberfarm_backend
