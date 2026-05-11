@@ -1,5 +1,5 @@
 # base
-FROM node:25-alpine AS base
+FROM node:26-alpine AS base
 WORKDIR /usr/src/app
 COPY /frontend/package*.json ./
 RUN npm install --only=production
